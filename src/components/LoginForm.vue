@@ -1,12 +1,6 @@
 <template>
   <form @submit.prevent="loginUser" class="flex flex-col gap-4">
-    <input
-      type="email"
-      v-model="loginForm.email"
-      placeholder="Email"
-      class="border p-2 rounded"
-      required
-    />
+    <input type="email" placeholder="Email" class="border p-2 rounded" required />
     <input
       type="password"
       v-model="loginForm.password"
