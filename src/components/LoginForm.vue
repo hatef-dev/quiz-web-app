@@ -14,7 +14,10 @@
       class="border p-2 rounded"
       required
     />
-    <button type="submit" class="bg-blueDark text-white py-2 rounded hover:bg-blue-800 transition">
+    <button
+      type="submit"
+      class="bg-blueDark text-white py-2 rounded hover:bg-blueDark/80 transition"
+    >
       Login
     </button>
   </form>
