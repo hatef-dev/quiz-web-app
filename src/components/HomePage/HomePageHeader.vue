@@ -59,81 +59,28 @@
         </div>
 
         <!-- Login Form -->
-        <form v-if="formType === 'login'" @submit.prevent="loginUser" class="flex flex-col gap-4">
-          <input
-            type="email"
-            v-model="loginForm.email"
-            placeholder="Email"
-            class="border p-2 rounded"
-            required
-          />
-          <input
-            type="password"
-            v-model="loginForm.password"
-            placeholder="Password"
-            class="border p-2 rounded"
-            required
-          />
-          <button
-            type="submit"
-            class="bg-blueDark text-white py-2 rounded hover:bg-blue-800 transition"
-          >
-            Login
-          </button>
-        </form>
-
+        <login-form v-if="formType === 'login'" />
         <!-- Register Form -->
-        <form v-else @submit.prevent="registerUser" class="flex flex-col gap-4">
-          <input
-            type="text"
-            v-model="registerForm.name"
-            placeholder="Full Name"
-            class="border p-2 rounded"
-            required
-          />
-          <input
-            type="email"
-            v-model="registerForm.email"
-            placeholder="Email"
-            class="border p-2 rounded"
-            required
-          />
-          <input
-            type="password"
-            v-model="registerForm.password"
-            placeholder="Password"
-            class="border p-2 rounded"
-            required
-          />
-          <button
-            type="submit"
-            class="bg-blueDark text-white py-2 rounded hover:bg-blue-800 transition"
-          >
-            Register
-          </button>
-        </form>
+        <register-form v-if="formType === 'register'" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import LoginForm from '@/components/LoginForm.vue'
+import RegisterForm from '@/components/RegisterForm.vue'
 export default {
+  components: {
+    LoginForm,
+    RegisterForm,
+  },
   name: 'HomePageHeader',
   data() {
     return {
       avatarUrl: '',
       showModal: false,
       formType: 'login',
-      loginForm: {
-        email: '',
-        password: '',
-      },
-      registerForm: {
-        name: '',
-        email: '',
-        password: '',
-      },
     }
   },
   methods: {
@@ -141,8 +88,6 @@ export default {
       const randomSeed = Math.random().toString(36).substring(2, 10)
       this.avatarUrl = `https://api.dicebear.com/9.x/miniavs/svg?seed=${randomSeed}&backgroundColor=b6e3f4,c0aede,d1d4f9`
     },
-    loginUser() {},
-    registerUser() {},
   },
   mounted() {
     this.getRandomUserPic()

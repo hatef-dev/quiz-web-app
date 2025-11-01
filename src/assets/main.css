@@ -5,7 +5,7 @@
 }
 
 .SignInButton {
-  @apply bg-white text-blueDark px-4 py-2 rounded-lg hover:bg-opacity-80 transition;
+  @apply bg-white text-blueDark px-4 py-2 rounded-lg hover:bg-white/80 transition;
 }
 
 .my-container {
