@@ -1,6 +1,7 @@
 <template>
   <vee-form :validation-schema="registerForm" @submit="registerUser" class="flex flex-col gap-4">
     <div>
+      <h1 class="text-xl font-bold my-2"></h1>
       <vee-field
         type="text"
         name="name"
@@ -47,6 +48,7 @@
 <script>
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '../includes/firebase'
+import { addDoc } from 'firebase/firestore'
 export default {
   name: 'RegisterForm',
   data() {
@@ -57,6 +59,8 @@ export default {
         password: 'required|min:6|max:30',
         confirmed: 'required|confirmed:@password',
       },
+      req_message: 'register is complete',
+      req_message_class: 'text-green-500',
     }
   },
   methods: {
@@ -67,6 +71,8 @@ export default {
       } catch (error) {
         console.log(error)
       }
+
+      addDoc(db, 'users', userCrd.user)
     },
   },
 }
