@@ -5,8 +5,11 @@ import {
   email,
   min,
   max,
+  min_value as minValue,
+  max_value as maxValue,
   alpha_spaces as alphaSpaces,
   confirmed,
+  not_one_of as exclude,
 } from '@vee-validate/rules'
 import { configure } from 'vee-validate'
 
@@ -17,11 +20,14 @@ export default {
     app.component('error-message', ErrorMessage)
 
     defineRule('required', required)
+    defineRule('exclude', exclude)
     defineRule('email', email)
     defineRule('min', min)
     defineRule('max', max)
     defineRule('alphaSpaces', alphaSpaces)
     defineRule('confirmed', confirmed)
+    defineRule('minValue', minValue)
+    defineRule('maxValue', maxValue)
 
     configure({
       generateMessage: (ctx) => {
@@ -31,8 +37,11 @@ export default {
           email: 'This field must be a valid email',
           min: `This field must be at least ${error} characters`,
           max: `This field must be at most ${error} characters`,
+          minValue: `This field must be at least ${error}`,
+          maxValue: `This field must be at most ${error}`,
           alphaSpaces: 'This field must only contain letters and spaces',
           confirmed: `This field must match the password field `,
+          exclude: 'This country is not available because this country is a bullshit',
         }
         const message = messages[ctx.rule.name]
           ? messages[ctx.rule.name]

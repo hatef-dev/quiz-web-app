@@ -1,7 +1,7 @@
 <template>
   <vee-form :validation-schema="registerForm" @submit="registerUser" class="flex flex-col gap-4">
     <div>
-      <h1 class="text-xl font-bold my-2"></h1>
+      <h1 class="text-xl font-bold my-2" :class="req_message_class">{{ req_message }}</h1>
       <vee-field
         type="text"
         name="name"
@@ -20,6 +20,25 @@
         required
       />
       <error-message name="email" class="text-red-500" />
+    </div>
+    <div>
+      <vee-field
+        type="number"
+        name="age"
+        placeholder="Age"
+        class="border p-2 rounded w-full"
+        required
+      />
+      <error-message name="age" class="text-red-500" />
+    </div>
+    <div>
+      <vee-field as="select" name="country" class="border p-2 rounded w-full text-black" required>
+        <option value="" selected disabled hidden>Select Country</option>
+        <option :value="country.name" v-for="country in countries" :key="country.name">
+          {{ country.name }}
+        </option>
+      </vee-field>
+      <error-message name="country" class="text-red-500" />
     </div>
     <div>
       <vee-field
@@ -47,10 +66,13 @@
 
 <script>
 import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { auth, db } from '../includes/firebase'
+import { auth, userCollection } from '../includes/firebase'
 import { addDoc } from 'firebase/firestore'
 export default {
   name: 'RegisterForm',
+  mounted() {
+    this.getCountries()
+  },
   data() {
     return {
       registerForm: {
@@ -58,9 +80,12 @@ export default {
         email: 'required|email',
         password: 'required|min:6|max:30',
         confirmed: 'required|confirmed:@password',
+        age: 'required|minValue:18|maxValue:100',
+        country: 'required|exclude:Iran (Islamic Republic of)',
       },
-      req_message: 'register is complete',
-      req_message_class: 'text-green-500',
+      countries: [],
+      req_message: 'Waiting for registration',
+      req_message_class: 'text-black',
     }
   },
   methods: {
@@ -68,11 +93,29 @@ export default {
       let userCrd = null
       try {
         userCrd = await createUserWithEmailAndPassword(auth, values.email, values.password)
+        this.req_message = 'Registered Successfully'
+        this.req_message_class = 'text-green-500'
       } catch (error) {
         console.log(error)
+        this.req_message = 'Something went wrong'
+        this.req_message_class = 'text-red-500'
+        return
       }
 
-      addDoc(db, 'users', userCrd.user)
+      addDoc(userCollection, {
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        age: values.age,
+      })
+      console.log(values)
+    },
+    async getCountries() {
+      const res = await fetch(
+        'https://api.allorigins.win/raw?url=https://www.apicountries.com/countries',
+      )
+      const data = await res.json()
+      this.countries = data
     },
   },
 }
