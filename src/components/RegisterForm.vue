@@ -45,6 +45,8 @@
 </template>
 
 <script>
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth, db } from '../includes/firebase'
 export default {
   name: 'RegisterForm',
   data() {
@@ -58,8 +60,13 @@ export default {
     }
   },
   methods: {
-    registerUser(values) {
-      console.log(values)
+    async registerUser(values) {
+      let userCrd = null
+      try {
+        userCrd = await createUserWithEmailAndPassword(auth, values.email, values.password)
+      } catch (error) {
+        console.log(error)
+      }
     },
   },
 }
