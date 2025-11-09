@@ -6,13 +6,14 @@ import { getFirestore } from 'firebase/firestore'
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+// Copy this file to firebase.js and fill in your actual Firebase config values
 const firebaseConfig = {
-  apiKey: 'AIzaSyA6xOdV06yWuSrf8PZ_kGiGAq4Q6IrRAso',
-  authDomain: 'quiz-c4929.firebaseapp.com',
-  projectId: 'quiz-c4929',
-  storageBucket: 'quiz-c4929.firebasestorage.app',
-  messagingSenderId: '82904369570',
-  appId: '1:82904369570:web:2430eba189cebe83ffcafb',
+  apiKey: 'YOUR_API_KEY',
+  authDomain: 'YOUR_PROJECT_ID.firebaseapp.com',
+  projectId: 'YOUR_PROJECT_ID',
+  storageBucket: 'YOUR_PROJECT_ID.appspot.com',
+  messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
+  appId: 'YOUR_APP_ID',
 }
 
 // Initialize Firebase

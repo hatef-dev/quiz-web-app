@@ -36,6 +36,5 @@ coverage
 __screenshots__/
 
 # Firebase
-@/includes/firebase.js
-/src/includes/firebase.js
+src/includes/firebase.js
 
