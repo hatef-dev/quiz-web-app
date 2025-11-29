@@ -5,7 +5,7 @@
       id="bgColor"
       type="color"
       v-model="backgroundColor"
-      @blur="updateCurrentUser('backgroundColor', bgColor)"
+      @change="updateCurrentUser('backgroundColor', backgroundColor.replace('#', ''))"
       class="color-picker"
     />
   </div>
@@ -14,15 +14,15 @@
     <select
       name="scale"
       v-model="scale"
-      @blur="updateCurrentUser('scale', scale)"
+      @change="updateCurrentUser('scale', scale)"
       class="bg-gray-200 border-0 outline-0 p-2 rounded-lg px-2"
       id="scale"
     >
-      <option value="100%">100%</option>
-      <option value="120%">120%</option>
-      <option value="130%">130%</option>
-      <option value="140%">140%</option>
-      <option value="150%">150%</option>
+      <option value="100">100%</option>
+      <option value="120">120%</option>
+      <option value="130">130%</option>
+      <option value="140">140%</option>
+      <option value="150">150%</option>
     </select>
   </div>
   <div class="flex flex-col mt-10 gap-4">
@@ -30,15 +30,15 @@
     <select
       name="translateX"
       v-model="translateX"
-      @blur="updateCurrentUser('translateX', translateX)"
+      @change="updateCurrentUser('translateX', translateX)"
       class="bg-gray-200 border-0 outline-0 p-2 rounded-lg px-2"
       id="translateX"
     >
-      <option value="0%">0%</option>
-      <option value="5%">5%</option>
-      <option value="10%">10%</option>
-      <option value="15%">15%</option>
-      <option value="20%">20%</option>
+      <option value="0">0%</option>
+      <option value="5">5%</option>
+      <option value="10">10%</option>
+      <option value="15">15%</option>
+      <option value="20">20%</option>
     </select>
   </div>
 
@@ -47,8 +47,8 @@
     <input
       id="skinColor"
       type="color"
-      v-model="skinColor"
-      @blur="updateCurrentUser('skinColor', skinColor.replace('#', ''))"
+      v-model="baseColor"
+      @change="updateCurrentUser('baseColor', baseColor.replace('#', ''))"
       class="color-picker"
     />
   </div>
@@ -58,8 +58,8 @@
     <select
       id="Eyebrows"
       name="Eyebrows"
-      v-model="Eyebrows"
-      @blur="updateCurrentUser('Eyebrows', Eyebrows)"
+      v-model="eyebrows"
+      @change="updateCurrentUser('eyebrows', eyebrows)"
       class="bg-gray-200 border-0 outline-0 p-2 rounded-lg px-2"
     >
       <option value="down">Down</option>
@@ -74,7 +74,7 @@
     <input
       id="EyebrowsColor"
       v-model="eyebrowsColor"
-      @blur="updateCurrentUser('eyebrowsColor', eyebrowsColor.replace('#', ''))"
+      @change="updateCurrentUser('eyebrowsColor', eyebrowsColor.replace('#', ''))"
       type="color"
       class="color-picker"
     />
@@ -85,7 +85,7 @@
     <select
       id="Glasses"
       v-model="glasses"
-      @blur="updateCurrentUser('glasses', glasses)"
+      @change="updateCurrentUser('glasses', glasses)"
       name="Glasses"
       class="bg-gray-200 border-0 outline-0 p-2 rounded-lg px-2"
     >
@@ -100,7 +100,7 @@
     <input
       id="GlassesColor"
       v-model="glassesColor"
-      @blur="updateCurrentUser('glassesColor', glassesColor.replace('#', ''))"
+      @change="updateCurrentUser('glassesColor', glassesColor.replace('#', ''))"
       type="color"
       class="color-picker"
     />
@@ -111,7 +111,7 @@
     <select
       name="Hair"
       v-model="hair"
-      @blur="updateCurrentUser('hair', hair)"
+      @change="updateCurrentUser('hair', hair)"
       class="bg-gray-200 border-0 outline-0 p-2 rounded-lg px-2"
       id="Hair"
     >
@@ -131,7 +131,7 @@
     <input
       id="HairColor"
       v-model="hairColor"
-      @blur="updateCurrentUser('hairColor', hairColor.replace('#', ''))"
+      @change="updateCurrentUser('hairColor', hairColor.replace('#', ''))"
       type="color"
       class="color-picker"
     />
@@ -142,7 +142,7 @@
     <select
       name="Mouth"
       v-model="mouth"
-      @blur="updateCurrentUser('mouth', mouth)"
+      @change="updateCurrentUser('mouth', mouth)"
       class="bg-gray-200 border-0 outline-0 p-2 rounded-lg px-2"
       id="Mouth"
     >
@@ -153,7 +153,7 @@
       <option value="sad">Sad</option>
       <option value="smile">Smile</option>
       <option value="smirk">Smirk</option>
-      <option value="suprised">Suprised</option>
+      <option value="surprised">Surprised</option>
     </select>
   </div>
 
@@ -162,7 +162,7 @@
     <select
       name="Shirt"
       v-model="shirt"
-      @blur="updateCurrentUser('shirt', shirt)"
+      @change="updateCurrentUser('shirt', shirt)"
       class="bg-gray-200 border-0 outline-0 p-2 rounded-lg px-2"
       id="Shirt"
     >
@@ -177,7 +177,35 @@
     <input
       id="ShirtColor"
       v-model="shirtColor"
-      @blur="updateCurrentUser('shirtColor', shirtColor.replace('#', ''))"
+      @change="updateCurrentUser('shirtColor', shirtColor.replace('#', ''))"
+      type="color"
+      class="color-picker"
+    />
+  </div>
+
+  <div class="flex flex-col mt-10 gap-4">
+    <label for="Eyes" class="color-label text-2xl">Eyes</label>
+    <select
+      name="Shirt"
+      v-model="eyes"
+      @change="updateCurrentUser('eyes', eyes)"
+      class="bg-gray-200 border-0 outline-0 p-2 rounded-lg px-2"
+      id="eyes"
+    >
+      <option value="eyes">Eyes</option>
+      <option value="eyesShadow">Eyes Shadow</option>
+      <option value="round">Round</option>
+      <option value="smiling">Smiling</option>
+      <option value="smilingShadow">Smiling Shadow</option>
+    </select>
+  </div>
+
+  <div class="flex flex-col mt-10 gap-4">
+    <label for="EyesColor" class="color-label text-2xl">Eyes color</label>
+    <input
+      id="EyesColor"
+      v-model="eyesColor"
+      @change="updateCurrentUser('eyesColor', eyesColor.replace('#', ''))"
       type="color"
       class="color-picker"
     />
@@ -186,14 +214,29 @@
 
 <script>
 export default {
+  emits: ['updateCurrentUser'],
   data() {
     return {
-      bgColor: backgroundColor.replace('#', ''),
+      backgroundColor: 'b6e3f4',
+      scale: '100',
+      translateX: '0',
+      baseColor: '#ffe8e8',
+      eyebrows: 'down',
+      eyebrowsColor: '000000',
+      glasses: 'round',
+      glassesColor: '000000',
+      hair: 'fonze',
+      hairColor: '000000',
+      mouth: 'smile',
+      shirt: 'collared',
+      shirtColor: '000000',
+      eyes: 'eyes',
+      eyesColor: '000000',
     }
   },
   methods: {
     updateCurrentUser(key, value) {
-      this.$emit('updateCurrentUser', { key, value })
+      this.$emit('updateCurrentUser', { [key]: value })
     },
   },
 }
