@@ -68,7 +68,12 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth, userCollection } from '../includes/firebase'
 import { addDoc } from 'firebase/firestore'
+import useAvatar from '@/stores/avatar'
+import { mapState } from 'pinia'
 export default {
+  computed: {
+    ...mapState(useAvatar, ['avatar']),
+  },
   name: 'RegisterForm',
   mounted() {
     this.getCountries()
@@ -96,24 +101,30 @@ export default {
         this.req_message = 'Registered Successfully'
         this.req_message_class = 'text-green-500'
       } catch (error) {
-        console.log(error)
         this.req_message = 'Something went wrong'
         this.req_message_class = 'text-red-500'
         return
       }
 
-      addDoc(userCollection, {
-        name: values.name,
-        email: values.email,
-        password: values.password,
-        age: values.age,
-      })
+      try {
+        addDoc(userCollection, {
+          name: values.name,
+          email: values.email,
+          password: values.password,
+          age: values.age,
+          country: values.country,
+          avatar: this.avatar,
+        })
+      } catch (error) {
+        console.log(error)
+        this.req_message = 'Something went wrong'
+        this.req_message_class = 'text-red-500'
+        return
+      }
       console.log(values)
     },
     async getCountries() {
-      const res = await fetch(
-        'https://api.allorigins.win/raw?url=https://www.apicountries.com/countries',
-      )
+      const res = await fetch('/api-countries/countries')
       const data = await res.json()
       this.countries = data
     },

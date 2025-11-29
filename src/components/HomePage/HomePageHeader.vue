@@ -4,9 +4,11 @@
       <!-- Header -->
       <div class="flex justify-between items-center">
         <div class="gap-x-2 items-center flex">
-          <div class="h-10 w-10 rounded-full overflow-hidden">
-            <img :src="avatarUrl" alt="avatar" />
-          </div>
+          <router-link to="/about">
+            <div class="h-10 w-10 rounded-full overflow-hidden">
+              <img :src="avatarUrl" alt="avatar" />
+            </div>
+          </router-link>
           <h1 class="text-white text-3xl">Welcome to Quiz Web App</h1>
         </div>
         <div>
@@ -61,7 +63,7 @@
         <!-- Login Form -->
         <login-form v-if="formType === 'login'" />
         <!-- Register Form -->
-        <register-form v-if="formType === 'register'" />
+        <register-form :seed="avatarUrl" v-if="formType === 'register'" />
       </div>
     </div>
   </div>
@@ -70,6 +72,9 @@
 <script>
 import LoginForm from '@/components/LoginForm.vue'
 import RegisterForm from '@/components/RegisterForm.vue'
+import useAvatar from '@/stores/avatar'
+import { mapWritableState } from 'pinia'
+
 export default {
   components: {
     LoginForm,
@@ -83,10 +88,14 @@ export default {
       formType: 'login',
     }
   },
+  computed: {
+    ...mapWritableState(useAvatar, ['avatar']),
+  },
   methods: {
     getRandomUserPic() {
-      const randomSeed = Math.random().toString(36).substring(2, 10)
-      this.avatarUrl = `https://api.dicebear.com/9.x/miniavs/svg?seed=${randomSeed}&backgroundColor=b6e3f4,c0aede,d1d4f9`
+      // const randomSeed = Math.random().toString(36).substring(2, 10)
+      this.avatarUrl = `https://api.dicebear.com/9.x/micah/svg?randomizeIds=false&backgroundColor=b6e3f4,c0aede,d1d4f9&baseColor=fb00ff`
+      this.avatar = this.avatarUrl
     },
   },
   mounted() {
