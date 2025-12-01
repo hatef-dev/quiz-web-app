@@ -27,14 +27,12 @@ export default {
         baseColor: 'ffe8e8',
         eyebrows: 'down',
         eyebrowsColor: '000000',
-        glasses: 'round',
-        glassesColor: '000000',
         hair: 'fonze',
         hairColor: '000000',
         mouth: 'smile',
         shirt: 'collared',
         shirtColor: '000000',
-        glassesProbability: '100',
+        glassesProbability: '0',
       },
     }
   },
@@ -44,13 +42,11 @@ export default {
   computed: {
     avatarUrl() {
       const params = new URLSearchParams(this.avatarOptions).toString()
-      console.log(params)
       return `https://api.dicebear.com/9.x/micah/svg?${params}`
     },
   },
   methods: {
     updateCurrentUser(data) {
-      console.log(data)
       this.avatarOptions = { ...this.avatarOptions, ...data }
     },
   },

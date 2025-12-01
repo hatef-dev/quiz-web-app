@@ -85,11 +85,11 @@
     <select
       id="Glasses"
       v-model="glasses"
-      @change="updateCurrentUser('glasses', glasses)"
+      @change="handleGlassesChange"
       name="Glasses"
       class="bg-gray-200 border-0 outline-0 p-2 rounded-lg px-2"
     >
-      <option value="">No Glasses</option>
+      <option value="noGlasses">No Glasses</option>
       <option value="round">Rounded</option>
       <option value="square">Square</option>
     </select>
@@ -101,6 +101,7 @@
       id="GlassesColor"
       v-model="glassesColor"
       @change="updateCurrentUser('glassesColor', glassesColor.replace('#', ''))"
+      :disabled="glasses == 'none'"
       type="color"
       class="color-picker"
     />
@@ -217,26 +218,36 @@ export default {
   emits: ['updateCurrentUser'],
   data() {
     return {
-      backgroundColor: 'b6e3f4',
+      backgroundColor: '#b6e3f4',
       scale: '100',
       translateX: '0',
       baseColor: '#ffe8e8',
       eyebrows: 'down',
-      eyebrowsColor: '000000',
-      glasses: 'round',
-      glassesColor: '000000',
+      eyebrowsColor: '#000000',
+      glasses: 'noGlasses',
+      glassesColor: '#000000',
       hair: 'fonze',
-      hairColor: '000000',
+      hairColor: '#000000',
       mouth: 'smile',
       shirt: 'collared',
-      shirtColor: '000000',
+      shirtColor: '#000000',
       eyes: 'eyes',
-      eyesColor: '000000',
+      eyesColor: '#000000',
+      glassesProbability: '0',
     }
   },
   methods: {
     updateCurrentUser(key, value) {
       this.$emit('updateCurrentUser', { [key]: value })
+    },
+    handleGlassesChange() {
+      if (this.glasses === 'noGlasses') {
+        this.updateCurrentUser('glassesProbability', '0')
+      } else {
+        this.updateCurrentUser('glasses', this.glasses)
+        this.updateCurrentUser('glassesProbability', '100')
+        this.updateCurrentUser('glassesColor', this.glassesColor.replace('#', ''))
+      }
     },
   },
 }
